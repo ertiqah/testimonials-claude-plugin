@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "testimonials": {
+      "type": "http",
+      "url": "https://testimonials.ltd/mcp"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "testimonials",
+  "displayName": "testimonials.ltd",
+  "description": "Manage testimonials.ltd from Claude Code: the connector (find, sort, approve, tag, feature and import testimonials) plus the skill that imports reviews from Trustpilot, G2, Google and other review sites word for word.",
+  "author": {
+    "name": "testimonials.ltd",
+    "url": "https://testimonials.ltd"
+  },
+  "homepage": "https://testimonials.ltd/integrations/claude",
+  "repository": "https://github.com/ertiqah/testimonials-claude-plugin",
+  "license": "MIT",
+  "keywords": ["testimonials", "reviews", "social-proof", "mcp", "import"]
+}

@@ -1,0 +1,42 @@
+name: Sync skill from testimonials.ltd
+
+# The skill's single source is the copy served by the site:
+#   https://testimonials.ltd/skills/testimonials-import-reviews/SKILL.md
+# (repo: ertiqah testimonials, frontend/public/skills/...). This workflow copies
+# it here and commits when it changed, so the plugin never drifts from the site
+# or the .zip download. Hand edits to the SKILL.md in this repo are overwritten:
+# edit the site's copy instead.
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-skill
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - name: Copy the live SKILL.md
+        run: bash scripts/sync-skill.sh
+      - name: Commit if it changed
+        run: |
+          if git diff --quiet; then
+            echo "Plugin SKILL.md already matches testimonials.ltd"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add plugins/testimonials/skills/testimonials-import-reviews/SKILL.md
+          git commit -m "Sync SKILL.md from testimonials.ltd"
+          git push
